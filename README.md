@@ -42,3 +42,5 @@ In this repository you can find the configuration of two virtual machines:
 
 The server is installed without GUI.
 
+![alt text](assets/Bind9-Status-active.png)
+
