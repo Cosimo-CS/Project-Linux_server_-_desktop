@@ -98,13 +98,13 @@ Choose the base for the installation:
 
 Done.
 
-Network connections
+## Network connections
 
 Don't touch nothing and just press done.
 
 Same for "Configure proxy", "Configure ubuntu archive mirror" just press done, we don't need to set up one for this project.
 
-Guided storage configuration
+## Guided storage configuration
 
 You can leave it by default also:
 - Use an entire disk
@@ -112,13 +112,13 @@ You can leave it by default also:
 
 Done.
 
-Storage configuration
+## Storage configuration
 
 I left the configuration by default also.
 
 Done and you can confirm destructive action.
 
-Profile setup
+## Profile setup
 
 - Your name: Totti K
 - Your servers name: ubuntu-server
@@ -128,8 +128,10 @@ Profile setup
 
 Done.
 
-SSH setup
+## SSH setup
 
 I didn't Installed open SSH server we will configure it later, same for Feature Server Snaps.
 
 Congrats! You can take a coffee during the installation of your server. x-)
+
+When it's done you can press on "Reboot now"
