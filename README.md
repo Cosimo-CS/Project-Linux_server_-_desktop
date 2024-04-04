@@ -146,7 +146,7 @@ So I wanted to simplify my life and set up an SSH connection directly with my de
 
 But first let's do some basic configuration, which will be necessary for the rest of the operation.
 
-## Steps
+### __Steps__
 
 ### __1. Install sudo and add user to sudoers__
 
@@ -207,7 +207,7 @@ As you can see on the image we are listening by default on port 22.
 
 ![alt-text](assets/ssltn-command.png)
 
-Let's enable the firewall to allow ssh port connection.
+### __Let's enable the firewall to allow ssh port connection.__
 ```sh
 sudo ufw enable
 ```
@@ -236,7 +236,7 @@ sudo vim 01-enp0s8-config.yaml
 ```
   - Add the following configuration to the file:
      ```bash
-network:
+ network:
   ethernets:
   enp0s8:
    addresses:
@@ -245,13 +245,13 @@ network:
   version: 2
     ```
 
-After that switch of the machine using
+After that switch off the machine using
 
 ```sh
 init 0
 ```
 
-# Why are we using the interface enp0s8 and the ip address 192.168.52.1/24 ?
+### __Why are we using the interface enp0s8 and the ip address 192.168.52.1/24 ?__
 
 Because in our software Oracle Virtual box we gonna change the settings of the virtual machine and add another interface to configure a static ip address to allow the configuration for the SSH and also for the GLPI.
 
@@ -277,7 +277,7 @@ Now just open your VM desktop (if already mounted) or just try with your host co
 ssh YOUR_USERNAME@192.168.52.1
 ```
 
-### Configuring DHCP Server
+### __Configuring DHCP Server__
 
 1. **Install ISC DHCP Server**:
    ```bash
@@ -301,7 +301,7 @@ ssh YOUR_USERNAME@192.168.52.1
     }
     ```
 
-1. **Specify the Network Interface**:
+3. **Specify the Network Interface**:
    - Now we will edit "isc-dhcp-server" file to specify the interface DHCP.
     ```bash
      sudo vim /etc/default/isc-dhcp-server
@@ -313,7 +313,7 @@ INTERFACESv4="enp0s3"
 INTERFACESv6=""
     ```
   
-2. **Start and Enable DHCP Service**:
+ ### __Start and Enable DHCP Service__
    ```bash
    sudo systemctl restart isc-dhcp-server
    sudo systemctl enable isc-dhcp-server
@@ -336,12 +336,12 @@ By doing the following command you can see that we get a:
 
  ### Setting Up a DNS Server with BIND
 
-1. **Install BIND**:
+1. ### __Install BIND__
    ```bash
    sudo apt install bind9
    ```
 
-2. **Configure DNS Server**:
+2. ### __Configure DNS Server:__
     - Edit the BIND configuration file.
      ```bash
       sudo vim /etc/bind/named.conf.options
@@ -374,13 +374,13 @@ sudo vim /run/systemd/resolve/stub-resolv.conf
    ```
    ![alt text](assets/conf-systemd.png)
    
- **Start and Enable BIND**:
+ ### __Start and Enable BIND:__
    ```bash
    sudo systemctl restart bind9
    sudo systemctl enable bind9
    ```
 
- **Verify DNS Configuration**:
+ ### __Verify DNS Configuration:__
     - Check the status of the BIND service.
     ```bash
       sudo systemctl status bind9
