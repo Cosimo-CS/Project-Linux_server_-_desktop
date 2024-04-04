@@ -235,14 +235,14 @@ Let's configure it!
 sudo vim 01-enp0s8-config.yaml
 ```
   - Add the following configuration to the file:
-     ```bash
- network:
-  ethernets:
-  enp0s8:
-   addresses:
-   - 192.168.52.1/24
-   nameservers: {}
-  version: 2
+    ```bash
+      network:
+        ethernets:
+        enp0s8:
+        addresses:
+        - 192.168.52.1/24
+    nameservers: {}
+    version: 2
     ```
 
 After that switch off the machine using
