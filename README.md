@@ -135,3 +135,36 @@ I didn't Installed open SSH server we will configure it later, same for Feature 
 Congrats! You can take a coffee during the installation of your server. x-)
 
 When it's done you can press on "Reboot now"
+
+### __3. Setting Up the VM__
+
+Now let's get down to business and start configuring the server!
+
+As you can see, it's quite annoying to 'not be able' to do what you want because you're only faced with a terminal.
+
+So I wanted to simplify my life and set up an SSH connection directly with my desktop (which I'd already installed upstream).
+
+But first let's do some basic configuration, which will be necessary for the rest of the operation.
+
+## Steps
+
+### __1. Install sudo and add user to sudoers__
+
+Install sudo and add your user to the sudoers group:
+```sh
+su root
+```
+```sh
+apt install sudo
+```
+```sh
+usermod -aG sudo YOUR_USERNAME
+```
+```sh
+exit
+```
+
+Test sudo and privilege:
+```sh
+sudo apt update
+```
