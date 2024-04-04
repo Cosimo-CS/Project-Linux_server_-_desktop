@@ -179,4 +179,102 @@ df
 ```
 ![alt-text](assets/df-command.png)
 
+### __2. Installation of SSH__
+
+I will put the sudo command to have the full syntax but to make this configuration it's better that you take your root privilege directly to avoid using "sudo" in the syntax of your command.
+
+Root privileges
+```sh
+su -
+```
+
+Install the ssh package via sudo
+```sh
+sudo apt install ssh
+```
+
+Check the systemctl status
+```sh
+sudo systemctl status ssh
+```
+If the service is active(running), then it's ok.
+
+We want to check if we are really listening to port 22 so we will use this command.
+```sh
+ss -ltn
+```
+As you can see on the image we are listening by default on port 22.
+
+![alt-text](assets/ssltn-command.png)
+
+Let's enable the firewall to allow ssh port connection.
+```sh
+sudo ufw enable
+```
+We will allow our firewall to accept those ports:
+```sh
+sudo ufw allow 22/tcp
+```
+
+We can check if it's well allowed by using
+```sh
+sudo ufw status
+```
+
+Now let's go the change the configuration of the interface ipv4 for the ssh connection
+```sh
+cd /etc/netplan
+```
+
+Make a copy of 00-installer-config.yaml and rename it.
+```sh
+cp 00-installer-config.yaml 01-enp0s8-config.yaml
+```
+Let's configure it!
+```sh
+sudo vim 01-enp0s8-config.yaml
+```
+  - Add the following configuration to the file:
+     ```bash
+network:
+  ethernets:
+  enp0s8:
+   addresses:
+   - 192.168.52.1/24
+   nameservers: {}
+  version: 2
+    ```
+
+After that switch of the machine using
+
+```sh
+init 0
+```
+
+# Why are we using the interface enp0s8 and the ip address 192.168.52.1/24 ?
+
+Because in our software Oracle Virtual box we gonna change the settings of the virtual machine and add another interface to configure a static ip address to allow the configuration for the SSH and also for the GLPI.
+
+![alt-text](assets/settings-vm.png)
+
+After adding the adaptater 2 you have also to go in Files --> Tools --> Network Manager and there under the tab "Host-Only Networks" you set up your static ip address (don't forget to disable dhcp server)
+
+![alt-text](assets/settings-network.png)
+
+You are now ready to establish your SSH connection! (You can even try it via your host computer)
+
+Turn on your server and first let's check if the settings are correctly made
+
+```sh
+ip a
+```
+You should get this result, as you can see enp0s8 have a static ip address 192.168.52.1
+
+![alt-text](assets/ipa-command.png)
+
+Now just open your VM desktop (if already mounted) or just try with your host computer to enter in the server via ssh connection.
+```sh
+ssh YOUR_USERNAME@192.168.52.1
+```
+
 
