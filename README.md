@@ -168,3 +168,5 @@ Test sudo and privilege:
 ```sh
 sudo apt update
 ```
+
+I've also added few nice commands to get information from your new fresh server. They are in the commands file.
