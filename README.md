@@ -171,10 +171,12 @@ sudo apt update
 
 I've also added few nice commands to get information from your new fresh server. They are in the commands file.
 
-Here below you can see 2 nice example to get information that we will need to set up our SSH connection, DHCP, DNS,etc.
+Here below you can see 1 nice example to get information that we will need to set up our SSH connection, DHCP, DNS,etc.
 
 The df command displays information about total space and available space on a file system. The FileSystem parameter specifies the name of the device on which the file system resides, the directory on which the file system is mounted, or the relative path name of a file system.
 ```sh
 df
 ```
 ![alt-text](assets/df-command.png)
+
+
