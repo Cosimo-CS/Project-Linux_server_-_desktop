@@ -42,7 +42,7 @@ In this repository you can find the configuration of two virtual machines:
 
 The server is installed without GUI.
 
-![alt text](assets/bind9test.png)
+![alt text](assets/no-gui.png)
 
 Let's discover the differents configurations made for this project:
 
