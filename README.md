@@ -70,17 +70,66 @@ You can get one in the following link: [ubuntu-22.04-iso](https://ubuntu.com/dow
 
 Once the ISO downloaded, we can set up the new VM on VirtualBox.
 
-Click on "NEW", fill out the name, select the ISO you just downloaded and check "Skip Unattended Installation".
+Click on New button, fill out the name, select the ISO you just downloaded.
 
-![alt-text](images/iso-vm.png)
+![alt-text](assets/iso-vm.png)
 
-Allocate at least 2048MB of RAM and 2 CPU cores since we're gonna run a desktop environment on it.
+Press "Next" and there you can set up your username with password and the hostname of the server.
 
-Allocate 30GB of hard drive space or more.
+Allocate 4096MB of RAM;
+Allocate 20GB of hard drive space or more. (Depending on the space in your host computer)
 
 Finish.
 
+------------------------------------------------------------------------------------
 
+### __2. Installing Linux on the VM__
 
+Select your language: I choosed English by default.
 
+Configure the keyboard: 
+- Layout: Belgian
+- Variant: Belgian
 
+Done.
+
+Choose the base for the installation:
+- Ubuntu server
+
+Done.
+
+Network connections
+
+Don't touch nothing and just press done.
+
+Same for "Configure proxy", "Configure ubuntu archive mirror" just press done, we don't need to set up one for this project.
+
+Guided storage configuration
+
+You can leave it by default also:
+- Use an entire disk
+- Set up this disk as an LVM group
+
+Done.
+
+Storage configuration
+
+I left the configuration by default also.
+
+Done and you can confirm destructive action.
+
+Profile setup
+
+- Your name: Totti K
+- Your servers name: ubuntu-server
+- Pick a username: totti
+- choose a password: ******
+- Confirm it.
+
+Done.
+
+SSH setup
+
+I didn't Installed open SSH server we will configure it later, same for Feature Server Snaps.
+
+Congrats! You can take a coffee during the installation of your server. x-)
