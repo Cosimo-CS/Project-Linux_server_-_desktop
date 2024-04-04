@@ -44,5 +44,14 @@ The server is installed without GUI.
 
 ![alt text](assets/bind9test.png)
 
+Let's discover differents configurations made for this project:
+
+Server configuration --> linux-server.config
+Desktop configuration --> linux-desktop.config
+
+Enjoy! 
+
+
+
 
 
