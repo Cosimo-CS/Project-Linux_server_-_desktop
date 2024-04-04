@@ -5,19 +5,15 @@ Since how many time server is running.
 CMD : uptime
 
 Show the date
-```sh
-date
-```
-Infos from your hard disk
-```sh
-df
-```
-Infos from your interfaces connections
-```sh
-free
-```
 
-Test sudo and privilege:
-```sh
-sudo apt update
-```
+CMD: date
+
+Infos from your hard disk
+
+CMD: df
+
+Infos from your interfaces connections
+
+CMD: free
+
+
