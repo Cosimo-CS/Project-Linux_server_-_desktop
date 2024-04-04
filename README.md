@@ -277,4 +277,120 @@ Now just open your VM desktop (if already mounted) or just try with your host co
 ssh YOUR_USERNAME@192.168.52.1
 ```
 
+### Configuring DHCP Server
 
+1. **Install ISC DHCP Server**:
+   ```bash
+   sudo apt install isc-dhcp-server -y
+   ```
+
+2. **Configure DHCP Server**:
+   - First we will edit dhcpd.conf file.
+    ```bash
+     sudo vim /etc/dhcp/dhcpd.conf
+    ```
+   - We add the following configuration to the file:
+    ```bash
+    subnet 192.168.0.0 netmask 255.255.255.0 {
+        range 192.168.0.100 192.168.0.200;
+        option domain-name-servers 192.168.0.1; 
+        option routers 192.168.0.1; 
+        option broadcast-address 192.168.0.255;
+        default-lease-time 600;
+        max-lease-time 7200;
+    }
+    ```
+
+1. **Specify the Network Interface**:
+   - Now we will edit "isc-dhcp-server" file to specify the interface DHCP.
+    ```bash
+     sudo vim /etc/default/isc-dhcp-server
+     ```
+   - and once inside we set the `INTERFACESv4` variable to our server's network interface. Now it will be "enp0s3"
+  
+         ```bash
+INTERFACESv4="enp0s3"
+INTERFACESv6=""
+    ```
+  
+2. **Start and Enable DHCP Service**:
+   ```bash
+   sudo systemctl restart isc-dhcp-server
+   sudo systemctl enable isc-dhcp-server
+   sudo systemctl status isc-dhcp-server
+    ```
+    
+ ![alt text](assets/dhcp-service.png) 
+
+DHCP service is now active.
+
+By doing the following command you can see that we get a:
+- DHCP Discover
+- DHCP REQUEST
+- DHCP ACK
+
+   ```bash
+   sudo dhclient -v
+   ```
+ ![alt text](assets/dhclient-command.png) 
+
+ ### Setting Up a DNS Server with BIND
+
+1. **Install BIND**:
+   ```bash
+   sudo apt install bind9
+   ```
+
+2. **Configure DNS Server**:
+    - Edit the BIND configuration file.
+     ```bash
+      sudo vim /etc/bind/named.conf.options
+     ```
+    - Add the following configuration to the file:
+     ```bash
+     forwarders {
+        1.1.1.1;
+        8.8.8.8.;
+    };
+    ```
+- 1.1.1.1 = Cloudflare DNS
+- 8.8.8.8 = Google DNS
+  After that you can try to ping them to check if the connectivity is working.
+
+     /!\ Remove well the // in the front of each line !
+  
+   ![alt text](assets/conf-bind9.png)
+
+There is also a service included with systemd called resolved and we have to disable this service in order to put Bind9 being used as our main DNS resolution service.
+
+So let's stop first this service and we will also disable it.
+   ```bash
+   sudo systemctl stop systemd-resolved
+   sudo systemctl disable systemd-resolved
+   ```
+Let's open another file in cd/run/systemd/resolve
+   ```bash
+sudo vim /run/systemd/resolve/stub-resolv.conf
+   ```
+   ![alt text](assets/conf-systemd.png)
+   
+ **Start and Enable BIND**:
+   ```bash
+   sudo systemctl restart bind9
+   sudo systemctl enable bind9
+   ```
+
+ **Verify DNS Configuration**:
+    - Check the status of the BIND service.
+    ```bash
+      sudo systemctl status bind9
+      ```
+    ![alt text](assets/DNS.png) 
+
+    The DNS server is now running and ready to resolve domain names for clients on the network.
+
+    Testing the DNS server...
+
+    ```bash
+    nslookup google.com
+      ```
