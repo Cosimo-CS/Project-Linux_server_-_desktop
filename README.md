@@ -72,7 +72,7 @@ Once the ISO downloaded, we can set up the new VM on VirtualBox.
 
 Click on "NEW", fill out the name, select the ISO you just downloaded and check "Skip Unattended Installation".
 
-![](images/iso-vm.png)
+![alt-text](images/iso-vm.png)
 
 Allocate at least 2048MB of RAM and 2 CPU cores since we're gonna run a desktop environment on it.
 
