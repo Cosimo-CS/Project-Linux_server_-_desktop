@@ -1,4 +1,4 @@
-# Project Linux server and desktop #
+# Project Linux server and desktop
 1st linux project - Kamkar 04.24
 
 ## Project context 
