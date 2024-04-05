@@ -568,4 +568,15 @@ Of course we will need to restart our service apache2
 Don't forget to refresh also your web page in the browser. Congratulations.
 
 
+# Desktop Ubuntu VM:
+
+Settings:
+- 4096 Mo of RAM
+- 3 CPU cores
+- 20 GB of storage
+- Adaptater 1 : Bridged network adapter
+- Ubuntu 22.04 LTS  Edition
+- Hostname: `ubuntu-server`
+
+
 
