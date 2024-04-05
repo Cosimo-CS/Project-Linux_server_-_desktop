@@ -542,7 +542,7 @@ For Database connection setup:
 
   And sign in.  You are finally inside your DB. Congratulations!
 
-  ### __Change password of your users:__
+### __Change password of your users:__
 
 First step is to change the password of your users because they are all set by default. You even have a warning message on the top of the page.
 
@@ -555,13 +555,17 @@ Second step is to remove also the file glpi/install/install.php
 
       ```bash
     cd /var/www/html/glpi/install   
-   ```
+    ```
       ```bash
     sudo rm -fr install.php  
-   ```
+    ```
 Of course we will need to restart our service apache2
-```bash
-    sudo systemctl restart apache2
-   ```
+
+      ```bash
+    sudo systemctl restart apache2 
+    ```
+
 Don't forget to refresh also your web page in the browser. Congratulations.
+
+
 
