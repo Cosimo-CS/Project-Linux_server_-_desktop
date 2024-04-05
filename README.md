@@ -567,6 +567,25 @@ Of course we will need to restart our service apache2
 
 Don't forget to refresh also your web page in the browser. Congratulations.
 
+# Firewall Configuration
+
+Let's make sure the firewall allows traffic on the necessary ports:
+```bash
+sudo ufw allow ...
+sudo ufw enable
+sudo ufw status
+```
+I use the TCP (Transmission Control Protocol) and I have the following ports open :
+
+ - 22/tcp: Standard port for SSH (Secure Shell) - remote administration.
+ - 53: DNS client applications use the DNS protocol to query and request information from DNS servers, and the server returns the results to the client using the same port.
+ - 80: Standard port for HTTP (HyperText Transfer Protocol) unsecured web traffic.
+ - 443: Standard port for HTTPS (HTTP Secure) - secured web traffic.
+ - 67: Used for DHCP
+
+The entries ending in (v6) represent the rules that apply to IPv6 traffic for the same ports.
+
+We are done with the server settings.
 
 # Desktop Ubuntu VM:
 
