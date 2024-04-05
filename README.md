@@ -697,12 +697,13 @@ Remmina installation to be able to help a user from another workstation:
 sudo apt install remmina
 ```
 
-Firewall set up + allow the RDP port:
+Firewall set up + allow the RDP & SSH port:
 ```sh
 sudo apt install ufw
 ```
 ```sh
 sudo ufw allow 3389
+sudo ufw allow 22/tcp
 ```
 ```sh
 sudo ufw enable
