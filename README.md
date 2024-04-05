@@ -591,11 +591,19 @@ We are done with the server settings.
 
 Settings:
 - 4096 Mo of RAM
-- 3 CPU cores
-- 20 GB of storage
-- Adaptater 1 : Bridged network adapter
-- Ubuntu 22.04 LTS  Edition
-- Hostname: `ubuntu-server`
+- 2 CPU cores
+- 25 GB of storage
+- Adaptater 1 : NAT
+- Ubuntu 22.04 
+- Hostname: `Linux-desktop`
+
+### Install Ubuntu
+
+1. **Mount the Installation ISO**
+2. **Install Ubuntu**:
+    I've installed Ubuntu 22.04 LTS Desktop Edition. The installation process is straightforward, and you can follow the on-screen instructions to complete the installation.
+
+   
 
 
-
+     
