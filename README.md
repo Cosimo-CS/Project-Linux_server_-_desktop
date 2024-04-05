@@ -394,3 +394,174 @@ sudo vim /run/systemd/resolve/stub-resolv.conf
     ```bash
     nslookup google.com
       ```
+
+ ### __Setting Up HTTP and MariaDB for GLPI__
+
+ ### __Installing prerequisites__
+ 
+ First let's update the full system to have latests updates.
+   ```bash
+   sudo apt update && sudo apt upgrade -y
+   ```
+It's mandatory to use this command to install all php packages extensions (it will be useful for later)
+   ```bash
+   sudo apt install -y vim wget tar php-curl php-zip php-gd php-intl php-intl php-pear php-imagick php-imap php-memcache php-pspell php-tidy php-xmlrpc php-xsl php-mbstring php-ldap php-ldap php-cas php-apcu libapache2-mod-php php-mysql php-bz2
+   ```
+Why ? because when I wanted for the first time to run the php script I had this kind of issues.
+
+![alt text](assets/issuesphpinstallation.png)
+
+ Check if the service "Apache2" is running (active)
+   ```bash
+   sudo systemctl status apache2
+   ``` 
+
+### __Install Apache and MariaDB:__
+   ```bash
+   sudo apt install apache2 mariadb-server
+   ```
+
+### __Create a Database for GLPI:__
+  
+   Access MariaDB prompt:
+ ```bash
+   sudo mysql -u root -p
+ ```
+        
+    ```sql
+    CREATE DATABASE glpi_kamkar;
+    CREATE user glpi_admin@localhost IDENTIFIED BY 'YOUR_PASSWORD';
+    GRANT ALL ON glpi_kamkar.* TO glpi_admin@localhost;
+    FLUSH PRIVILEGES;
+    EXIT;
+    ```
+    ![alt text](assets/cmd_mariadb_glpi.png)
+
+### __Install GLPI via Command Line__
+
+1. ### __Download GLPI:__
+   ```bash
+   wget -O /tmp/glpi.tgz https://github.com/glpi-project/glpi/releases/download/10.0.14/glpi-10.0.14.tgz
+   ```
+
+2. ### __Extract GLPI:__
+   ```bash
+   tar -xzf /tmp/glpi.tgz -C /var/www/html/
+   ```
+
+3. ### __Set Permissions:__
+   ```bash
+   chown -R www-data:www-data /var/www/html/glpi
+   ```
+   ```bash
+   chmod -R 755 /var/www/html/glpi
+   ```
+   You can check if it worked by going in the folder glpi
+   ```bash
+   cd /var/www/html/glpi
+   ```
+   Using ll command
+   ```bash
+   ll
+   ```
+![alt text](assets/ll-command.png)
+
+   After modifying the permissions let's restart apache2
+   ```bash
+   sudo systemctl restart apache2
+   ```
+
+4. ### __Run the Install Script:__
+   ```bash
+   php /var/www/html/glpi/bin/console db:install --db-host=localhost --db-name=glpi --db-user=YOUR_USER --db-password='YOUR_PASSWORD'
+   ```
+
+   If it doesn't work for any reason,don't worry there is another option to get into your db via interface but for this you will need to set up your desktop VM first and have SSH connection from your desktop to your server.
+
+   ### __Check ip of the server__
+
+   We will check the ip of the server so that we can connect via a browser from your desktop's VM
+   ```bash
+   ifconfig
+   ```
+
+   You can see in the example next to the interface enp0s8 that we configured before we still have the ip address 192.168.52.1.
+
+   ![alt text](assets/ifconfig-command.png)
+
+   ### __Desktop's Browser__
+
+   As mentioned above, we are now on the desktop with an SSH connection to the server. (This gives us access to our database via the browser).
+
+      ```bash
+   ssh YOUR_USER@IP_ADDRESS_OF_THE_SERVER   
+   ```
+See example below
+  ![alt text](assets/ssh-browser.png) 
+
+  Search the address ip of the server and add /glpi at the end and you will get the connection to GLPI and MariaDB.
+
+If you put only the ip address you will get the apache2 server default page.
+
+![alt text](assets/apacheserver_ui.png) 
+
+Result with /glpi
+
+![alt text](assets/glpinstallation2.png) 
+
+After that:
+
+- Select the language
+- Licenses: Continue
+- Choose Install
+- You can see that all PHP extensions are ok, press continue.
+
+For Database connection setup:
+
+- SQL Server (MariaDB or MySQL) : localhost
+- SQL User : In this case "glpi_admin"
+- SQL Password: Your password that you have set in your command at the point "Create a Database for GLPI"
+
+  When you are connected don't create a new database (we did it via CLI before so just select the database already created.
+
+  ![alt text](assets/glpinstallation.png)
+
+  The database is initialized.
+  We don't need send "usage statistics" and press continue 2x.
+
+  /!\ Pay attention at the step6 you will receive your credentials for your server. (Take a picture of it!)
+
+  You will need those credentials to connect to your database and after that you will be able to change the password to make it more secure.
+
+  Press "use GLPI".
+
+  So by default to login to your account in this case it will be.
+
+  - Login : glpi
+  - Password: glpi
+
+  And sign in.  You are finally inside your DB. Congratulations!
+
+  ### __Change password of your users:__
+
+First step is to change the password of your users because they are all set by default. You even have a warning message on the top of the page.
+
+For this you can go to Administration --> Users
+
+![alt text](assets/glpiconnection.png)
+  
+
+Second step is to remove also the file glpi/install/install.php  
+
+      ```bash
+    cd /var/www/html/glpi/install   
+   ```
+      ```bash
+    sudo rm -fr install.php  
+   ```
+Of course we will need to restart our service apache2
+```bash
+    sudo systemctl restart apache2
+   ```
+Don't forget to refresh also your web page in the browser. Congratulations.
+
