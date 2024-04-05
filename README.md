@@ -313,7 +313,7 @@ INTERFACESv4="enp0s3"
 INTERFACESv6=""
     ```
   
- ### __Start and Enable DHCP Service__
+  # Start and Enable DHCP Service
    ```bash
    sudo systemctl restart isc-dhcp-server
    sudo systemctl enable isc-dhcp-server
@@ -395,7 +395,7 @@ sudo vim /run/systemd/resolve/stub-resolv.conf
     nslookup google.com
       ```
 
- ### __Setting Up HTTP and MariaDB for GLPI__
+ # Setting Up HTTP and MariaDB for GLPI
 
  ### __Installing prerequisites__
  
