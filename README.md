@@ -604,6 +604,125 @@ Settings:
     I've installed Ubuntu 22.04 LTS Desktop Edition. The installation process is straightforward, and you can follow the on-screen instructions to complete the installation.
 
    
+Once your machine is turned on, the first thing we have to do is add your user to the sudoers.
 
+```sh
+su root
+```
+```sh
+sudo usermod -aG sudo YOUR_USERNAME
+```
+```sh
+exit
+```
+Restart your VM
+
+-----------------------------------------
+
+We'll start installing the consumer software.
+
+[Libre Office](https://www.libreoffice.org/)
+LibreOffice is installed by default on most popular linux distributions, but if it isn't on yours, type
+```sh
+sudo apt install libreoffice
+```
+
+[GIMP](https://www.gimp.org/)
+```sh
+sudo apt install gimp
+```
+
+[MULLVAD Browser](https://mullvad.net/en/download/browser/linux)
+
+Download it from their website.
+
+```sh
+cd Downloads
+```
+```sh
+tar xf mullvad-browser-linux64-[YOUR_VERSION].tar.xf
+```
+```sh
+rm mullvad-browser-linux64-[YOUR_VERSION].tar.xf
+```
+```sh
+mv mullvad-browser ~/
+```
+```sh
+cd
+```
+```sh
+cd mullvad-browser
+```
+```sh
+./start-mullvad-browser-desktop --register-app
+```
+
+You should have Mullvad browser registered in your applications.
+
+---
+
+We'll also set up the remote help straight away since it's just some more installs.
+
+To be able to remotely connect to a user, we'll use xrdp.
+
+
+```sh
+sudo apt update
+```
+```sh
+sudo apt install xrdp
+```
+```sh
+sudo systemctl status xrdp
+```
+
+If it's not running, enable it:
+```sh
+sudo systemctl enable --now xrdp
+```
+
+Add the xrdp user to the ssl-cert group:
+```sh
+sudo adduser xrdp ssl-cert
+```
+
+Restart the xrdp server:
+```sh
+sudo systemctl restart xrdp
+```
+
+Remmina installation to be able to help a user from another workstation:
+```sh
+sudo apt install remmina
+```
+
+Firewall set up + allow the RDP port:
+```sh
+sudo apt install ufw
+```
+```sh
+sudo ufw allow 3389
+```
+```sh
+sudo ufw enable
+```
+
+-----------------------------------------
+
+We'll try to remotely connect to another machine, for that we need to change our VM's network type and set it to Bridged.
+
+Shut down your VM, go to Settings > Network and in Adapter 1 switch NAT to Bridged Adapter.
+
+
+You can now remotely connect to your workstation from another machine on the network.
+
+To know your workstation's IP like we saw during the server configuration:
+```sh
+ip a
+```
+
+
+<ins>__You cannot remotely connect into a machine with an ongoing session with xrdp, either create a guest user or logout.__</ins>
 
      
