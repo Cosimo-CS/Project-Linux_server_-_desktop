@@ -150,6 +150,12 @@ But first let's do some basic configuration, which will be necessary for the res
 
 ### __1. Install sudo and add user to sudoers__
 
+First of all set the password for root users.
+```sh
+sudo passwd root
+```
+At this moment you can set up a password for "root"
+
 Install sudo and add your user to the sudoers group:
 ```sh
 su root
